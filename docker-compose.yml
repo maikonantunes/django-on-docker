@@ -2,7 +2,10 @@ version: "3.8"
 
 services:
   web:
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile
+
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
@@ -11,8 +14,9 @@ services:
     depends_on:
       - db
   db:
-    image: postgres:13
+    image: postgres
     environment:
+      - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
